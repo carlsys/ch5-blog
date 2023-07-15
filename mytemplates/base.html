@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>blog app</title>
+    <meta name="author" content="Carl Sys">
+    <meta name="description" content="Example from the book 'Django for beginners' - Chapter 5 - Blog app">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400">
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+
+<body>
+    <nav>
+        <li>
+            <a href="{% url 'blog_list' %}">
+                home (blog list view)
+            </a>
+            <a href="{% url 'blog_about_us' %}">
+                about us
+            </a>
+        </li>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock content %}
+    </main>
+</body>
+
+</html>

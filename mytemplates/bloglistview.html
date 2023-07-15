@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Blog list view - Blog app</h1>
+{% for post in post_list %}
+    <div class="post-entry">
+        <h2>{{ post.pk }} - {{ post.title }}</h2>
+        <a href="{% url 'blog_detail' post.pk %}">link</a>
+        <p>{{ post.body }}</p>
+    </div>
+{% endfor %}
+
+<hr>
+
+<h2>For your interest</h2>
+
+<p>
+Using { % load statiK % } as a first line in base.html result in ..
+<br/>
+'statiK' is not a registered tag library. Must be one of:
+<br/>
+admin_list
+<br/>
+admin_modify
+<br/>
+admin_urls
+<br/>
+cache
+<br/>
+i18n
+<br/>
+l10n
+<br/>
+log
+<br/>
+static
+<br/>
+tz
+</p>
+
+<p>
+    admin_list: {{ admin_list }}
+    <br/>
+    admin_modify: {{ admin_modify }}
+    <br/>
+    admin_urls: {{ admin_urls }}
+    <br/>
+    cache: {{ cache }}
+    <br/>
+    i18n: {{ i18n }}
+    <br/>
+    l10n: {{ l10n }}
+    <br/>
+    log: {{ log }}
+    <br/>
+    static: { % static % }
+    <br/>
+    tz: { % tz % }
+</p>
+
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>About page</h1>
+<p>
+    Contents info about us
+</p>
+<p>
+    Exaple of a <code>TemplateView</code> from 
+    <code>django.views.generic.base</code>. 
+</p>
+<p>
+    FYI: The following three classes provide much of the functionality needed to create Django views. You may think of them as parent views, which can be used by themselves or inherited from. They may not provide all the capabilities required for projects, in which case there are Mixins and Generic class-based views.
+    <ul>
+        <li><code>View</code></li>
+        <li><code>TemplateView</code></li>
+        <li><code>RedirectView</code></li>
+    </ul>
+    <br/>
+    Many of Django’s built-in class-based views inherit from other class-based views or various mixins. Because this inheritance chain is very important, the ancestor classes are documented under the section title of Ancestors (MRO). MRO is an acronym for Method Resolution Order.
+    <br/>
+    <a href="https://docs.djangoproject.com/en/4.2/ref/class-based-views/base/">
+        reference
+    </a>
+</p>
+{% endblock %}
+
