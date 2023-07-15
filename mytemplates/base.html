@@ -13,14 +13,21 @@
 
 <body>
     <nav>
-        <li>
+        <div class="nav-left">
             <a href="{% url 'blog_list' %}">
                 home (blog list view)
             </a>
+        </div>
+        <div class="nav-left">
             <a href="{% url 'blog_about_us' %}">
                 about us
             </a>
-        </li>
+        </div>
+        <div class="nav-right">
+            <a href="{% url 'blog_create' %}">
+                + new blog post
+            </a>
+        </div>
     </nav>
 
     <main>

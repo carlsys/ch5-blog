@@ -60,11 +60,37 @@ class BlogTest(TestCase):
     def test_post_detailview(self):
         response = self.client.get(reverse("blog_detail", kwargs={"pk": self.post.pk}))
         no_response = self.client.get(reverse("blog_detail", kwargs={"pk": 1234}))
+        #no_response = self.client.get(reverse("blog_detail", args="1234"))
         self.assertEqual(response.status_code, 200)
         self.assertEqual(no_response.status_code, 404)
         self.assertTemplateUsed(response, "blogdetailview.html")
         self.assertContains(response, "A title for my post.")
         self.assertContains(response, "Here comes the body of the blog ...")
         self.assertContains(response, "username")
+    
+    def test_post_createview(self):
+        response = self.client.post(reverse("blog_create"), {
+            "title": "new title",
+            "author": self.author.id,
+            "body": "new content",
+        })
+        self.assertEqual(response.status_code, 302)
+        #self.assertTemplateUsed(response, "blogcreateview.html")
+        # No templates used to render the response
+        self.assertEqual(Post.objects.last().title, "new title")
+        self.assertEqual(Post.objects.last().body, "new content")
+
+    def test_post_updateview(self):
+        response = self.client.post(reverse("blog_update", kwargs={"pk": 1}), {
+            "title": "updated title",
+            "body": "updated body",
+        })
+        self.assertEqual(response.status_code, 302)
+        self.assertEqual(Post.objects.last().title, "updated title")
+        self.assertEqual(Post.objects.last().body, "updated body")
+
+    def test_post_deleteview(self):
+        response = self.client.post(reverse("blog_delete", args='1'))
+        self.assertEqual(response.status_code, 302)
 
 

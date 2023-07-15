@@ -14,4 +14,6 @@ class Post(models.Model):
         return self.title[:25]
     
     def get_absolute_url(self):
+        #return reverse('blog_about_us')
+        # Return here after creating new object with CreateView
         return reverse('blog_detail', kwargs={'pk': self.pk})
