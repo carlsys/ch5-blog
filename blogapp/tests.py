@@ -2,6 +2,8 @@ from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 
+import json
+
 from .models import Post
 
 # Create your tests here.
@@ -59,14 +61,34 @@ class BlogTest(TestCase):
     
     def test_post_detailview(self):
         response = self.client.get(reverse("blog_detail", kwargs={"pk": self.post.pk}))
-        no_response = self.client.get(reverse("blog_detail", kwargs={"pk": 1234}))
-        #no_response = self.client.get(reverse("blog_detail", args="1234"))
+        no_response1 = self.client.get(reverse("blog_detail", kwargs={"pk": 1234}))
+        #no_response2 = self.client.get(reverse("blog_detail", args="1234"))
+        # django.urls.exceptions.NoReverseMatch: Reverse for 'blog_detail' with arguments '('1', '2', '3', '4')' not found. 1 pattern(s) tried: ['blabal/(?P<pk>[0-9]+)/\\Z']
+        #no_response3 = self.client.get(reverse("blog_detail", args=1234))
+        # TypeError: Value after * must be an iterable, not int
+        no_response4 = self.client.get(reverse("blog_detail", args=[1234]))
         self.assertEqual(response.status_code, 200)
-        self.assertEqual(no_response.status_code, 404)
+        self.assertEqual(no_response1.status_code, 404)
+        self.assertEqual(no_response4.status_code, 404)
         self.assertTemplateUsed(response, "blogdetailview.html")
         self.assertContains(response, "A title for my post.")
         self.assertContains(response, "Here comes the body of the blog ...")
         self.assertContains(response, "username")
+        print("-------")
+        content = response.content
+        print(content)
+        print("-------")
+        print(response.templates)
+        print("-------")
+        print(response.context)
+        print("-------")
+        print(response.charset)
+        print("-------")
+        print("TYPE: ", type(response))
+        print("-------")
+        #result = json.loads(response.content)
+        #print(result) # json.decoder.JSONDecodeError: Expecting value: line 2 column 1 (char 1)
+        print("-------")
     
     def test_post_createview(self):
         response = self.client.post(reverse("blog_create"), {
